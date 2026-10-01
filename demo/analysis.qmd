@@ -1,0 +1,44 @@
+---
+title: "Run Plan demo"
+format: html
+---
+
+This notebook exists to try the Run Plan button. Each chunk prints a counter and its own label, so the order in which the chunks ran can be read from the console. Nothing is written to disk.
+
+The chunks are deliberately out of order: `save-checkpoint` sits above the chunks whose result it stores.
+
+```{r setup}
+demo_step <- 0
+tick <- function(label) {
+  demo_step <<- demo_step + 1
+  cat(sprintf("[%d] %s\n", demo_step, label))
+}
+tick("setup")
+```
+
+```{r save-checkpoint, eval = FALSE}
+tick("save-checkpoint")
+checkpoint <- list(data = d, total = total)
+cat("checkpoint holds", nrow(checkpoint$data), "rows and total", checkpoint$total, "\n")
+```
+
+```{r}
+#| label: summarise
+tick("summarise")
+total <- sum(d$value)
+cat("total is", total, "\n")
+```
+
+```{r}
+#| label: load-data
+#| message: false
+tick("load-data")
+d <- data.frame(id = 1:3, value = c(10, 20, 30))
+```
+
+```{r}
+#| label: fail-on-purpose
+#| eval: false
+tick("fail-on-purpose")
+stop("this chunk stops on purpose")
+```

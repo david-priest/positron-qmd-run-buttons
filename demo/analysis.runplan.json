@@ -1,0 +1,13 @@
+{
+  "notebook": "analysis.qmd",
+  "plans": [
+    {
+      "name": "Out of notebook order",
+      "chunks": ["setup", "load-data", "summarise", "save-checkpoint"]
+    },
+    {
+      "name": "Stops at the third chunk",
+      "chunks": ["setup", "load-data", "fail-on-purpose", "summarise"]
+    }
+  ]
+}

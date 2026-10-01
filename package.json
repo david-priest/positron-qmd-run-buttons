@@ -1,8 +1,8 @@
 {
   "name": "qmd-run-buttons",
   "displayName": "Quarto run buttons",
-  "description": "Editor title-bar buttons for .qmd notebooks in Positron: Run Cells Above, Below and All, and Run Plan, which runs a listed set of chunks in the R console.",
-  "version": "0.1.0",
+  "description": "Buttons for Quarto and Jupyter notebooks in Positron: Run Cells Above, Below and All for .qmd files, and Run Plan, which runs a named list of chunks or cells in a stated order.",
+  "version": "0.2.0",
   "publisher": "wing-lab",
   "author": "David Priest",
   "license": "MIT",
@@ -17,7 +17,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:quarto"
+    "onLanguage:quarto",
+    "onNotebook:jupyter-notebook"
   ],
   "main": "./extension.js",
   "scripts": {
@@ -71,12 +72,24 @@
           "command": "qmdRunButtons.runPlan",
           "when": "editorLangId == quarto",
           "group": "navigation@4"
+        },
+        {
+          "command": "qmdRunButtons.runPlan",
+          "when": "activeEditor == workbench.editor.positronNotebook",
+          "group": "navigation@4"
         }
       ],
       "commandPalette": [
         {
           "command": "qmdRunButtons.runPlan",
-          "when": "editorLangId == quarto"
+          "when": "editorLangId == quarto || resourceExtname == .ipynb"
+        }
+      ],
+      "notebook/toolbar": [
+        {
+          "command": "qmdRunButtons.runPlan",
+          "when": "notebookType == 'jupyter-notebook'",
+          "group": "navigation/execute@5"
         }
       ]
     }
