@@ -20,7 +20,7 @@ In the Jupyter notebooks, `setup`, `summarise` and `fail-on-purpose` are named w
 4. A picker lists the two plans. Choose one.
 5. A dialog lists the steps in the order they will run. Click Run.
 
-For the Jupyter notebooks, select a kernel first if Positron has not chosen one. The notebooks state their language and do not name a kernel, so Positron should offer the R or Python interpreters it has found.
+For the Jupyter notebooks, check the kernel shown in the bar above the notebook before running a plan: it should be an R interpreter for `analysis-r.ipynb` and a Python interpreter for `analysis-python.ipynb`. Each notebook declares its language in its metadata (`language_info`, and a generic `kernelspec`), but Positron can still attach a kernel of the other language, for example when a session in that language is already running. To change it, click the kernel name in that bar and choose an interpreter of the right language. With the wrong kernel the first cell fails with a syntax error and the plan stops there.
 
 ## Plan 1: "Out of notebook order"
 
