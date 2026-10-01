@@ -2,7 +2,7 @@
 
 A small Positron extension that adds four buttons to the editor title bar of `.qmd` notebooks: Run Cells Above, Run Cells Below, Run All Cells, and Run Plan.
 
-Status: version 0.1.0. The first three buttons have been in regular use. Run Plan in this form, which sends chunk bodies to the R console through Positron's API, is covered by the automated tests in `test/` (parser, plan validation, sequencing against a stubbed console) but has not yet been exercised by clicking the button in a running Positron window.
+Status: version 0.1.0. The first three buttons have been in regular use. For Run Plan, the interface has been verified by hand in Positron: the button appears in the `.qmd` title bar with the rocket icon, it reads the plan file beside the notebook, the confirmation dialog lists the chunks, and an eight-chunk plan that included chunks marked `eval: false` ran to completion in plan order. That check used an earlier build that ran the chunks differently. The execution path in this version, which sends each chunk body to the R console through Positron's API and stops at the first error, is covered by the automated tests in `test/` (parser, plan validation, sequencing against a stubbed console) and has not yet been exercised by clicking the button in a running Positron window.
 
 ## The buttons
 
@@ -123,7 +123,7 @@ The tests have no dependencies. They stub the `vscode` module and replace the co
 
 ## Limitations
 
-- Run Plan has not been tested by hand in Positron in this version; see Status.
+- The execution path of Run Plan in this version has not been tested by hand in Positron; see Status.
 - R chunks only. Chunks in other languages are not seen by the parser and cannot be named in a plan.
 - The parser is line-based. It recognises fences that start at the beginning of a line with exactly three backticks, so chunks nested inside lists or callouts with indentation are not found.
 - Only `eval = FALSE`, `eval = F` and `#| eval: false` are recognised as switching evaluation off. A conditional `eval` expression is not evaluated, and the chunk is not flagged. This affects only the flag in the dialog; the chunk runs either way.
