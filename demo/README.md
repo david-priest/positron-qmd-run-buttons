@@ -16,7 +16,7 @@ In the Jupyter notebooks, `setup`, `summarise` and `fail-on-purpose` are named w
 
 1. Install the extension (`../install.sh` from this folder, then reload the window) and open this folder's parent in Positron.
 2. Open one of the notebooks.
-3. Click the rocket button. For `analysis.qmd` it is in the editor title bar, after the three run buttons. For a `.ipynb` it is in the bar above the notebook.
+3. Click the rocket button. For `analysis.qmd` it is in the editor title bar, after the three run buttons. For a `.ipynb` it is at the right-hand end of the bar above the notebook, after the kernel selector. If the `.ipynb` opens as raw JSON text, use Reopen Editor With... and choose a notebook editor; the button appears only in a notebook editor.
 4. A picker lists the two plans. Choose one.
 5. A dialog lists the steps in the order they will run. Click Run.
 
