@@ -1,0 +1,84 @@
+{
+  "name": "qmd-run-buttons",
+  "displayName": "Quarto run buttons",
+  "description": "Editor title-bar buttons for .qmd notebooks in Positron: Run Cells Above, Below and All, and Run Plan, which runs a listed set of chunks in the R console.",
+  "version": "0.1.0",
+  "publisher": "wing-lab",
+  "author": "David Priest",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/david-priest/positron-qmd-run-buttons.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:quarto"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "test": "node test/run-plan.test.js"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "qmdRunButtons.runCellsAbove",
+        "title": "Run Cells Above",
+        "category": "Quarto",
+        "icon": "$(run-above)"
+      },
+      {
+        "command": "qmdRunButtons.runCellsBelow",
+        "title": "Run Cells Below",
+        "category": "Quarto",
+        "icon": "$(run-below)"
+      },
+      {
+        "command": "qmdRunButtons.runAllCells",
+        "title": "Run All Cells",
+        "category": "Quarto",
+        "icon": "$(run-all)"
+      },
+      {
+        "command": "qmdRunButtons.runPlan",
+        "title": "Run Plan",
+        "category": "Quarto",
+        "icon": "$(rocket)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "qmdRunButtons.runCellsAbove",
+          "when": "editorLangId == quarto",
+          "group": "navigation@1"
+        },
+        {
+          "command": "qmdRunButtons.runCellsBelow",
+          "when": "editorLangId == quarto",
+          "group": "navigation@2"
+        },
+        {
+          "command": "qmdRunButtons.runAllCells",
+          "when": "editorLangId == quarto",
+          "group": "navigation@3"
+        },
+        {
+          "command": "qmdRunButtons.runPlan",
+          "when": "editorLangId == quarto",
+          "group": "navigation@4"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "qmdRunButtons.runPlan",
+          "when": "editorLangId == quarto"
+        }
+      ]
+    }
+  }
+}
