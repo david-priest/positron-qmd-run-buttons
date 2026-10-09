@@ -1,5 +1,7 @@
 # Quarto run buttons for Positron
 
+![Run Plan: run a chosen sequence of notebook chunks instead of finding and running each chunk by hand.](docs/images/run-plan-banner.png)
+
 A small Positron extension that adds run buttons to notebooks. On a Quarto `.qmd` it adds four buttons to the editor title bar: Run Cells Above, Run Cells Below, Run All Cells, and Run Plan. On a Jupyter `.ipynb` it adds Run Plan.
 
 Status: version 0.2.0. The first three buttons have been in regular use. Run Plan in this version has been verified by hand in Positron 2026.09.1 in two settings. On a `.qmd`, the rocket button is in the editor title bar, and the demo plan "Out of notebook order" ran in the R console in plan order, with a banner before each chunk and the expected output. On a `.ipynb` open in Positron's notebook editor with an R kernel, the rocket button appears at the right-hand end of the bar above the notebook, after the kernel selector; the demo plan "Out of notebook order" ran the cells in plan order with each output under the right cell, for cells named by a `#| label:` comment and cells named by a `label:` tag; and the demo plan "Stops at the third cell" stopped at `fail-on-purpose` with its error shown and did not run `summarise`. Stopping at a failing first cell and the failure notification have also been seen there: with a Python kernel attached to the R demo notebook, the plan stopped at `setup` and the notification read `Run plan: stopped at "setup": SyntaxError: invalid syntax...`. Not yet verified by hand: the built-in VS Code notebook editor (the `notebook/toolbar` button and the `notebook.cell.execute` route), the Python demo notebook, a plan that stops on an error in a `.qmd`, a notebook with no kernel selected, and the wording of the other notifications (success, and failure in a `.qmd`). Those are covered only by the automated tests in `test/`, which use a stubbed console, notebook and kernel.
@@ -184,3 +186,5 @@ The tests have no dependencies. They stub the `vscode` module, replace the conso
 ## Licence
 
 MIT. See `LICENSE`.
+
+The banner's rocket is adapted from the [Microsoft Codicons rocket](https://github.com/microsoft/vscode-codicons/blob/6b53088f5c55bce7107fb579765364f59cd4ad5d/src/icons/rocket.svg), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), and is shown recoloured and scaled.
