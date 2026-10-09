@@ -1,6 +1,6 @@
 # Quarto run buttons for Positron
 
-![Run Plan: run a chosen sequence of notebook chunks instead of finding and running each chunk by hand.](docs/images/run-plan-banner.png)
+![Run Plan: run a chosen sequence of notebook chunks instead of finding and running each chunk by hand.](docs/images/run-plan-banner-github.png)
 
 A small Positron extension that adds run buttons to notebooks. On a Quarto `.qmd` it adds four buttons to the editor title bar: Run Cells Above, Run Cells Below, Run All Cells, and Run Plan. On a Jupyter `.ipynb` it adds Run Plan.
 
