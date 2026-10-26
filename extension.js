@@ -158,10 +158,14 @@ function chunksOf(text) {
   return out;
 }
 
-// The line shown in the console before each chunk. A JSON string literal is a valid R string
+// The line shown in the console before each chunk. It is the chunk marker figtracer's figrun
+// prints, "── [label] ───…", with "(run plan i/n)" as its note, so a session log that records
+// the console (figtracer's docs/SESSION_LOG.md) can be split into chunks by one pattern. The
+// leading newline puts it on a line of its own. A JSON string literal is a valid R string
 // literal for the labels used here, quotes and backslashes included.
 function banner(step, i, n) {
-  return `message(${JSON.stringify(`---- run plan [${i + 1}/${n}]: ${step.label} ----`)})`;
+  const rule = "─".repeat(Math.max(0, 50 - step.label.length));
+  return `message(${JSON.stringify(`\n── [${step.label}] (run plan ${i + 1}/${n}) ${rule}`)})`;
 }
 
 // Sends the chunks one at a time, in the order given, and stops at the first that fails.

@@ -89,7 +89,7 @@ A leading `#| eval: false` comment is read as well, and such a cell is flagged i
 5. Runs the steps one at a time, waiting for each to finish before starting the next.
 6. Stops at the first step that raises an error, and reports which step failed and which were not run. If every step succeeds, a notification says so.
 
-For a `.qmd`, step 5 sends a one-line `message()` banner naming the chunk and then the chunk's body to the R console. The body is the text between the fences with the leading `#|` option lines removed.
+For a `.qmd`, step 5 sends a one-line `message()` banner naming the chunk, `── [cluster] (run plan 3/5) ───…`, and then the chunk's body to the R console. The banner has the form of the chunk marker [figtracer](https://github.com/david-priest/figtracer)'s `figrun` prints, so a session log that records the console can be split into chunks by the same pattern. The body is the text between the fences with the leading `#|` option lines removed.
 
 For a `.ipynb`, step 5 executes the cell in place with the notebook's kernel, exactly as running that cell by hand would. Outputs appear under the cell. Nothing is sent to the console.
 
