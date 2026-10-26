@@ -173,11 +173,11 @@ test("sequencing: banner then body for each chunk, in plan order, one at a time"
   assert.strictEqual(result.ok, true);
   assert.deepStrictEqual(result.done, ["save-checkpoint", "setup", "cluster"]);
   assert.deepStrictEqual(calls.map((c) => c.code), [
-    'message("---- run plan [1/3]: save-checkpoint ----")',
+    'message("\\n── [save-checkpoint] (run plan 1/3) ───────────────────────────────────")',
     "saveRDS(d, tempfile())",
-    'message("---- run plan [2/3]: setup ----")',
+    'message("\\n── [setup] (run plan 2/3) ─────────────────────────────────────────────")',
     "library(stats)\nx <- 1",
-    'message("---- run plan [3/3]: cluster ----")',
+    'message("\\n── [cluster] (run plan 3/3) ───────────────────────────────────────────")',
     "k <- kmeans(d, 2)",
   ]);
   assert.deepStrictEqual(calls.map((c) => c.mode), ["transient", "non-interactive", "transient", "non-interactive", "transient", "non-interactive"]);
@@ -234,7 +234,13 @@ test("sequencing: an empty chunk sends its banner and nothing else", async () =>
 });
 
 test("banner: a label with quotes stays a valid string literal", () => {
-  assert.strictEqual(ext.banner({ label: 'a"b' }, 0, 1), 'message("---- run plan [1/1]: a\\"b ----")');
+  assert.strictEqual(ext.banner({ label: 'a"b' }, 0, 1), 'message("\\n── [a\\"b] (run plan 1/1) ' + "─".repeat(47) + '")');
+});
+
+test("banner: it is the chunk marker a session log reader splits on, label first", () => {
+  const text = JSON.parse(ext.banner({ label: "fig-a" }, 1, 3).slice("message(".length, -1));
+  assert.match(text, /^\n── \[fig-a\] \(run plan 2\/3\) ─{45}$/);
+  assert.strictEqual(/^── \[([^\]]+)\]/m.exec(text)[1], "fig-a");
 });
 
 // ---- notebooks -----------------------------------------------------------------------------
@@ -516,9 +522,9 @@ test("command: a .qmd plan still runs through the R console", async () => {
   assert.match(shown.modal[0].msg, /Run "p" in the R console\?/);
   assert.strictEqual(shown.modal[0].detail, "1. cluster   (eval: false)\n2. setup");
   assert.deepStrictEqual(calls.map((c) => c.code), [
-    'message("---- run plan [1/2]: cluster ----")',
+    'message("\\n── [cluster] (run plan 1/2) ───────────────────────────────────────────")',
     "k <- kmeans(d, 2)",
-    'message("---- run plan [2/2]: setup ----")',
+    'message("\\n── [setup] (run plan 2/2) ─────────────────────────────────────────────")',
     "library(stats)\nx <- 1",
   ]);
   assert.deepStrictEqual(shown.info, ['Run plan: "p" finished (2 chunks).']);
